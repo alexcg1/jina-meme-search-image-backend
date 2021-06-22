@@ -11,9 +11,7 @@ try:
 except ImportError:
     pass
 
-def check_image_ok(filename, ok_types=[]):
-    if not ok_types:
-        ok_types = ['jpeg', 'png']
+def check_image_ok(filename, ok_types=['jpeg', 'png']):
     filetype = imghdr.what(filename)
     if filetype in ok_types:
         return True
