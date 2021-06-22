@@ -22,10 +22,15 @@ files_grabbed = []
 for files in types:
     files_grabbed.extend(glob(files))
 
-from pprint import pprint
 
-pprint(files_grabbed)
-
+def create_docarray(file_list):
+    """
+    Create DocArray
+    Each doc.content = file
+    Each doc["tags"]["original"] = file (base64 encoded)
+    That way the content will be munged by Jina but original file will exist in tags. So searching is efficient but can return full-res memes
+    """
+    pass
 
 def index(num_docs: int = num_docs):
     # Runs indexing for all images
