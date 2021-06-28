@@ -10,9 +10,6 @@ import base64
 import pretty_errors
 
 from jina import Flow, DocumentArray, Document
-
-# from jina.types.document.generators import from_files
-# from jina.logging import logger
 from config import (
     max_docs,
     images_dir,
@@ -72,21 +69,6 @@ def prep_docs(input_file, max_docs=max_docs, shuffle=True, images_dir=images_dir
 os.environ["JINA_WORKSPACE"] = backend_workdir
 os.environ["JINA_PORT"] = str(backend_port)
 
-# types = (f"{images_dir}/*.png", f"{images_dir}/*.jpg")
-# files_grabbed = []
-# for files in types:
-# files_grabbed.extend(glob(files))
-
-
-# def build_file_list(images_dir):
-# types = (f"{images_dir}/*.png", f"{images_dir}/*.jpg")
-# files_grabbed = []
-# for files in types:
-# files_grabbed.extend(glob(files))
-
-# return files_grabbed
-
-
 def encode_image_to_base64(image_file):
     with open(image_file, "rb") as file:
         encoded_image = base64.b64encode(file.read())
@@ -95,27 +77,7 @@ def encode_image_to_base64(image_file):
     return encoded_image
 
 
-# def create_docarray(file_list):
-# """
-# Create DocArray
-# Each doc.content = file
-# Each doc["tags"]["raw_image"] = file (base64 encoded)
-# That way the content will be munged by Jina but original file will exist in tags. So searching is efficient but can return full-res memes
-# """
-# docs = DocumentArray()
-# docs = []
-# for image_file in file_list:
-# doc = Document(uri=image_file)
-# doc.tags = {"base64_image": encode_image_to_base64(image_file)}
-# print(doc)
-
-# docs.append(doc)
-
-# return docs
-
-
 def index(input_docs, num_docs: int = max_docs):
-    # Runs indexing for all images
 
     with Flow.load_config("flows/index.yml") as flow:
         flow.post(
@@ -145,8 +107,6 @@ def query_restful():
 def main(task: str, num_docs: int, force: bool):
     workspace = os.environ["JINA_WORKSPACE"]
     if task == "index":
-        # image_files = build_file_list(images_dir)
-        # docs = create_docarray(image_files)
         if os.path.exists(workspace):
             if force:
                 shutil.rmtree(workspace)
