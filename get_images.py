@@ -13,7 +13,7 @@ except ImportError:
 
 def check_image_ok(filename, ok_types=['jpeg', 'png']):
     filetype = imghdr.what(filename)
-    if filetype in ok_types:
+    if ((filetype in ok_types) and (os.path.getsize(filename) > 10_000)):
         return True
     else:
         return False
