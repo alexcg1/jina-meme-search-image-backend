@@ -8,7 +8,8 @@ import numpy as np
 from jina import Document, DocumentArray, Executor, requests
 from helper import _load_image, _move_channel_axis, _crop_image, _resize_short
 from jina.excepts import PretrainedModelFileDoesNotExist
-from jina.logging import default_logger as logger
+from config import image_resize
+# from jina.logging import default_logger as logger
 
 
 class ImageCrafter(Executor):
@@ -17,7 +18,7 @@ class ImageCrafter(Executor):
         target_size: Union[Iterable[int], int] = 224,
         img_mean: Tuple[float] = (0, 0, 0),
         img_std: Tuple[float] = (1, 1, 1),
-        resize_dim: int = 256,
+        resize_dim: int = image_resize,
         channel_axis: int = -1,
         target_channel_axis: int = -1,
         *args,
@@ -111,7 +112,7 @@ class BigTransferEncoder(Executor):
         self.channel_axis = channel_axis
         self.model_path = model_path
         self.on_gpu = on_gpu
-        self.logger = logger
+        # self.logger = logger
 
         if self.model_path and os.path.exists(self.model_path):
             import tensorflow as tf
@@ -122,7 +123,7 @@ class BigTransferEncoder(Executor):
             if self.on_gpu and len(gpus) > 0:
                 cpus.append(gpus[0])
             tf.config.experimental.set_visible_devices(devices=cpus)
-            self.logger.info(f'BiT model path: {self.model_path}')
+            # self.logger.info(f'BiT model path: {self.model_path}')
             from tensorflow.python.keras.models import load_model
             _model = load_model(self.model_path)
             self.model = _model.signatures['serving_default']
