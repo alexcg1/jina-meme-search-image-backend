@@ -132,7 +132,7 @@ jina-profile*.json
 
 .vscode/
 */workspace
-workspace
+workspace*
 
 models
 result.html # genreated in pokedex example
