@@ -7,7 +7,6 @@ import click
 import sys
 from glob import glob
 import base64
-import pretty_errors
 
 from jina import Flow, DocumentArray, Document
 from config import (
@@ -19,6 +18,10 @@ from config import (
     backend_datafile,
 )
 
+try:
+    __import__("pretty_errors")
+except ImportError:
+    pass
 
 def prep_docs(input_file, max_docs=max_docs, shuffle=True, images_dir=images_dir):
     print(f"Preparing {max_docs} Documents")
