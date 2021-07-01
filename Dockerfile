@@ -1,4 +1,4 @@
-FROM jinaai/jina:2.0-py37
+FROM jinaai/jina:2.0.0-py38
 
 ARG docs_to_index=10
 
