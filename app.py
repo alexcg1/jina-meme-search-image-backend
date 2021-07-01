@@ -94,7 +94,8 @@ def index(input_docs, num_docs: int = max_docs):
 def query_restful():
     # Starts the restful query API
     flow = Flow.load_config("flows/query.yml")
-    flow.use_rest_gateway()
+    flow.port = backend_port
+    flow.protocol = 'http'
     with flow:
         flow.block()
 

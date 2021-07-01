@@ -193,7 +193,7 @@ class EmbeddingIndexer(Executor):
         for _q, _ids, _dists in zip(docs, idx, dist):
             for _id, _dist in zip(_ids, _dists):
                 doc = Document(self._docs[int(_id)], copy=True)
-                doc.score.value = 1 - _dist
+                # doc.score.value = 1 - _dist
                 doc.parent_id = int(_id)
                 _q.matches.append(doc)
         return docs
