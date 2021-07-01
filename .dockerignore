@@ -1,10 +1,12 @@
 # ignore everything
-#data
-#pretrained
-#workspace
+data
+pretrained
+workspace
 venv
 .github
 *.html
+tags
+.git
 
 # Ignore unnecessary files inside allowed directories
 # This should go after the allowed directories

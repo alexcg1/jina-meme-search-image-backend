@@ -1,27 +1,18 @@
-FROM jinaai/jina:2.0.0rc4-py38
+FROM jinaai/jina:2.0-py37
 
-# setup the workspace
+ARG docs_to_index=10
+
+RUN apt-get update 
+RUN apt-get -y install wget
+#RUN pip install --no-cache-dir --retries=10 --timeout=1000 -r requirements.txt 
+
 COPY . /workspace
 WORKDIR /workspace
+RUN sh get_data.sh  
 
-RUN apt-get update && apt-get install --no-install-recommends -y git curl libmagic1 wget tar \
-    && pip uninstall -y jina && pip install -r requirements.txt
+#RUN python get_images.py $docs_to_index
+#RUN sh get_model.sh 
+#RUN python app.py -t index -n $docs_to_index
+#RUN rm -rf data
 
-#RUN python get_data.py && bash get_model.sh && python app.py -t index
-
-ENTRYPOINT ["python", "app.py", "-t", "query_restful"]
-
-LABEL author="alex.cg@jina.ai"
-LABEL type="app"
-LABEL kind="example"
-LABEL avatar="None"
-LABEL description="Jina app to search memes by image"
-LABEL documentation="https://github.com/alexcg1/jina-meme-search-image-backend"
-LABEL keywords="[memes, cv, Google Big Transfer]"
-LABEL license="apache-2.0"
-LABEL name="jina-memes-image-search"
-LABEL platform="linux/amd64"
-LABEL update="None"
-LABEL url="https://github.com/alexcg1/jina-meme-search-image-backend"
-LABEL vendor="Jina AI Limited"
-LABEL version="0.3"
+#ENTRYPOINT ["python", "app.py" , "-t", "query_restful"]
