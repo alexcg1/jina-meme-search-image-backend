@@ -1,4 +1,4 @@
-# Search Pokemon Images with Jina
+# Search Meme Images with Jina
 
 In this example, we use [BiT (Big Transfer)](https://github.com/google-research/big_transfer), to build an end-to-end **neural image search** system. You can use this demo to index an image dataset and query the most similar image from it.
 
@@ -18,9 +18,8 @@ In this example, we use [BiT (Big Transfer)](https://github.com/google-research/
 |  |  |
 | ------------- | ------------- |
 | Learnings | *When running this example, you can learn how to create a jina image search* |
-| Data for indexing | *Pokemon sprites from [veekun.com](https://veekun.com/dex/downloads)* |
+| Data for indexing | *Meme dataset from kaggle* |
 | Data for querying | *An image* |
-| Dataset used | *[Veekun Pokemon Sprites](https://veekun.com/static/pokedex/downloads/)* |
 | Model used | *[Resnet R50x1 BiT(Big Transfer) model](https://tfhub.dev/google/bit/m-r50x1/imagenet21k_classification/1) trained on Imagenet21k* |
 
 
