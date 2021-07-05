@@ -239,6 +239,7 @@ class KeyValueIndexer(Executor):
 
     @requests(on='/search')
     def query(self, docs: DocumentArray, **kwargs) -> DocumentArray:
+        print(f"\tSearching index of {len(self._docs)} Documents")
         for doc in docs:
             for match in doc.matches:
                 extracted_doc = self._docs[int(match.parent_id)]
