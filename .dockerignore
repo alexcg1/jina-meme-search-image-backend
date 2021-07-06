@@ -7,6 +7,7 @@ venv
 *.html
 tags
 .git
+env
 
 # Ignore unnecessary files inside allowed directories
 # This should go after the allowed directories
