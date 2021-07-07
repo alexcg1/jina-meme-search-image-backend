@@ -18,10 +18,18 @@ from config import (
     backend_datafile,
 )
 
+# from executors import (
+    # ImageCrafter,
+    # BigTransferEncoder,
+    # EmbeddingIndexer,
+    # KeyValueIndexer,
+# )
+
 try:
     __import__("pretty_errors")
 except ImportError:
     pass
+
 
 def prep_docs(input_file, max_docs=max_docs, shuffle=True, images_dir=images_dir):
     print(f"Preparing {max_docs} Documents")
@@ -72,6 +80,7 @@ def prep_docs(input_file, max_docs=max_docs, shuffle=True, images_dir=images_dir
 os.environ["JINA_WORKSPACE"] = backend_workdir
 os.environ["JINA_PORT"] = str(backend_port)
 
+
 def encode_image_to_base64(image_file):
     with open(image_file, "rb") as file:
         encoded_image = base64.b64encode(file.read())
@@ -81,8 +90,17 @@ def encode_image_to_base64(image_file):
 
 
 def index(input_docs, num_docs: int = max_docs):
+    # flow = (
+        # Flow().add(uses=ImageCrafter, name="crafter", target_size=96, img_mean=[ 0.485, 0.456, 0.406 ], img_std=[ 0.229, 0.224, 0.225 ])
+        # .add(uses=BigTransferEncoder, name="encoder")
+        # .add(uses=EmbeddingIndexer, name="vec_idx", index_file_name="image.json")
+        # .add(uses=KeyValueIndexer, name="kv_idx")
+    # )
 
-    with Flow.load_config("flows/index.yml") as flow:
+    flow = Flow.load_config("flows/index.yml")
+
+    with flow:
+    # with Flow.load_config("flows/index.yml") as flow:
         flow.post(
             on="/index",
             inputs=input_docs,
@@ -95,7 +113,7 @@ def query_restful():
     # Starts the restful query API
     flow = Flow.load_config("flows/query.yml")
     flow.port = backend_port
-    flow.protocol = 'http'
+    flow.protocol = "http"
     with flow:
         flow.block()
 

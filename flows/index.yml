@@ -6,15 +6,27 @@ with:                                       # The with keyword defines parameter
     - executors.py
 executors:                                  # List of executors for this flow
   - name: crafter                           # Chosen name of the first executor
+    #uses: 'jinahub://ImageNormalizer'                                   # Define which executor to use 
+      #jtype: ImageCrafter                   # Name of the class of the executor from executors.py
+    #with:                                 # Define parameters for the constructor of the executor
+      #target_size: 96                     # Set the image target size
+      #img_mean: [ 0.485, 0.456, 0.406 ]   # Set the mean of the images for normalization
+      #img_std: [ 0.229, 0.224, 0.225 ]    # Set the standard deviation of the images for normalization
     uses:                                   # Define which executor to use
       jtype: ImageCrafter                   # Name of the class of the executor from executors.py
       with:                                 # Define parameters for the constructor of the executor
         target_size: 96                     # Set the image target size
         img_mean: [ 0.485, 0.456, 0.406 ]   # Set the mean of the images for normalization
         img_std: [ 0.229, 0.224, 0.225 ]    # Set the standard deviation of the images for normalization
-  - name: encoder                           # Arbitrary name for the second executor
-    uses:                                   # Define which executor to use
-      jtype: BigTransferEncoder             # Class of the executor - Use a BigTransferModel
+  #- name: encoder                           # Arbitrary name for the second executor
+    #uses: 'jinahub://BigTransferEncoder'                                 # Define which executor to use
+    #with:
+      #model_name: 'BiT-R50x1'
+      #model_path: './pretrained'
+      #jtype: BigTransferEncoder             # Class of the executor - Use a BigTransferModel
+  - name: clip_encoder
+    uses: 'jinahub+docker://CLIPImageEncoder:v1'
+    volumes: './cache/clip:/root/.cache/clip'
   - name: vec_idx                           # Executor name
     uses:                                   # Define details
       jtype: EmbeddingIndexer               # Indexer that stores the embeddings of the images
