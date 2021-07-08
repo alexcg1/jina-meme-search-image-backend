@@ -2,8 +2,8 @@
 version: '1'                                # Version number for jaml config
 with:                                       # The with keyword defines parameters for the flow
   workspace: "workspace"                    # Set the workspace path
-  #py_modules:                               # Define the location of the executors implementation
-    #- executors.py
+  # py_modules:                               # Define the location of the executors implementation
+  #   - executors.py
 executors:                                  # List of executors for this flow
   - name: crafter                           # Chosen name of the first executor
     #uses: 'jinahub://ImageNormalizer'                                   # Define which executor to use 
@@ -28,7 +28,7 @@ executors:                                  # List of executors for this flow
       #model_path: './pretrained'
       #jtype: BigTransferEncoder             # Class of the executor - Use a BigTransferModel
   - name: clip_encoder
-    uses: 'jinahub://CLIPImageEncoder:v1'
+    uses: 'jinahub+docker://CLIPImageEncoder:v1'
     volumes: './cache/clip:/root/.cache/clip'
   - name: vec_idx                           # Executor name
     uses:                                   # Define details

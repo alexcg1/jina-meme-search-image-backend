@@ -97,7 +97,7 @@ def index(input_docs, num_docs: int = max_docs):
         # .add(uses=KeyValueIndexer, name="kv_idx")
     # )
 
-    flow = Flow.load_config("flows/index.yml")
+    flow = Flow.load_config("flows/index2.yml")
 
     with flow:
     # with Flow.load_config("flows/index.yml") as flow:
